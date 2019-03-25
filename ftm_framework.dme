@@ -1,0 +1,9 @@
+//BEGIN_INTERNALS
+/*
+FILE: ftm_framework.dm
+AUTO_FILE_DIR: OFF
+*/
+#define FILE_DIR .
+#define DEBUG
+
+#include "ftm_framework.dm"
