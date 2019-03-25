@@ -28,14 +28,18 @@
 		stat.xp -= stat.xp_next;\
 		stat.xp_next = round(stat.xp_next * stat.xp_gain_rate);\
 	};
-#define STAT_PUBLIC_START_SAVE(stat)\
-	stat.saving = TRUE;
-#define STAT_PUBLIC_END_SAVE(stat)\
-	stat.saving = FALSE;
-#define STAT_PUBLIC_START_LOAD(stat)\
-	stat.loading = TRUE;
-#define STAT_PUBLIC_END_LOAD(stat)\
+#define STAT_SAVE_START(stat)\
+	stat.saving = TRUE;\
 	stat.loading = FALSE;
+#define STAT_SAVE_END(stat)\
+	stat.saving = FALSE;\
+	stat.loading = FALSE;
+#define STAT_LOAD_START(stat)\
+	stat.loading = TRUE;\
+	stat.saving = FALSE;
+#define STAT_LOAD_END(stat)\
+	stat.loading = FALSE;\
+	stat.saving = FALSE;
 
 Stat
 	var tmp
@@ -64,19 +68,24 @@ Stat
 	Del()
 		STAT_PRIVATE_ON_DEL(src)
 		. = ..()
-	
+	Write()
+		OnSave()
+		. = ..()
+	Read()
+		OnLoad()
+		. = ..()
 	proc
-		Save()
+		OnSave()
 			do
-				STAT_PUBLIC_START_SAVE(src)
+				STAT_SAVE_START(src)
 				//save handler
-				STAT_PUBLIC_END_SAVE(src)
+				STAT_SAVE_END(src)
 			while(saving)
-		Load()
+		OnLoad()
 			do
-				STAT_PUBLIC_START_LOAD(src)
+				STAT_LOAD_START(src)
 				//load handler
-				STAT_PUBLIC_END_LOAD(src)
+				STAT_LOAD_END(src)
 			while(loading)
 		SetName(name)
 			if(name) src.name = name

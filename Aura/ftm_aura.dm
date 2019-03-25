@@ -2,4 +2,4 @@
 
 #include "manager.dm"
 #include "group.dm"
-#include "aura.dm"
+#include "Aura/aura.dm"

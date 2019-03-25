@@ -1,9 +1,3 @@
-#define FILE_DIR ./
-
-#include "aura.dm"
-#include "group.dm"
-
-
 
 client
 	var tmp
@@ -42,3 +36,9 @@ AuraManager
 			_enabled_groups -= group_id
 
 		IsGroupEnabled(group_id) return (group_id in _enabled_groups) 
+
+		FixedUpdate(delta)
+			for(var/aura_id in _enabled_auras)
+				var/AuraGroup/group = _auras[aura_id]
+				for(var/e in group._running_auras)
+					

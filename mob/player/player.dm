@@ -1,3 +1,4 @@
+
 world
 	mob = /mob/player
 
